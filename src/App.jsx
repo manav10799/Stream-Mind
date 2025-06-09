@@ -1,10 +1,17 @@
 import "./App.css";
+import Body from "./components/Body";
+import Footer from "./layout/Footer";
+import Header from "./layout/Header";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <>
+      <div className="w-auto h-screen">
+        <Header />
+        <Body />
+        <Footer />
+      </div>
+    </>
   );
 }
 
