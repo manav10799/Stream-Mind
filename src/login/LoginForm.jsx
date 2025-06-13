@@ -1,20 +1,78 @@
 import React, { useRef, useState } from "react";
 import { checkValidEmail, checkValidPassword } from "../utils/validation";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../ReduxSlice/UserContext";
 
 const LoginForm = () => {
   const [isSignUpForm, setisSignUpForm] = useState(false);
   const [emailValidation, setEmailValidation] = useState("");
   const [passValidation, setpassValidation] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+  const dispatch = useDispatch();
   const toggleSignInForm = () => {
     setisSignUpForm(!isSignUpForm);
   };
+  const navigate = useNavigate();
   const handleSignInUpButton = () => {
     const emailErr = checkValidEmail(email.current.value);
     const passwordErr = checkValidPassword(password.current.value);
     setEmailValidation(emailErr);
     setpassValidation(passwordErr);
+    if (emailValidation || passValidation) return;
+    if (isSignUpForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+            photoURL: "https://xsgames.co/randomusers/avatar.php?g=pixel",
+          })
+            .then((data) => {
+              const user = {
+                displayName: name.current.value,
+                photoURL: "https://xsgames.co/randomusers/avatar.php?g=pixel",
+              };
+              dispatch(updateUser(user));
+              navigate("/browse");
+            })
+            .catch((error) => {});
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = {
+            email: userCredential.user.email,
+          };
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   };
   return (
     <div className="py-8 px-12">
@@ -33,6 +91,7 @@ const LoginForm = () => {
             <input
               type="text"
               placeholder="Type your Name"
+              ref={name}
               className="px-4 py-3 rounded bg-gray-700 focus-within:outline-0 mb-6 placeholder:text-gray-200 text-xs text-gray-200"
             />
           </>
@@ -62,6 +121,9 @@ const LoginForm = () => {
             {passValidation}
           </label>
         </div>
+        <label className="text-red-300 mb-0.5 text-xs font-bold text-wrap w-[200px]">
+          {errorMessage}
+        </label>
         <button
           className="bg-green-600 rounded py-2 px-2 mt-2 cursor-pointer text-sm"
           onClick={handleSignInUpButton}
