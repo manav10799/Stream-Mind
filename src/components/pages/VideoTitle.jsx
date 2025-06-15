@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 
 const VideoTitle = ({ title, overView, movieId }) => {
@@ -7,6 +7,7 @@ const VideoTitle = ({ title, overView, movieId }) => {
   const handleShowTrailerButton = () => {
     dispatch(toggleShowTrailer({ movieId, showTrailer: true }));
   };
+  const showTrailer = useSelector((store) => store?.trailer?.showTrailer);
   return (
     <div className="absolute text-white top-80 left-20">
       <div>

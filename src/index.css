@@ -36,3 +36,7 @@
     }
   }
 }
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}

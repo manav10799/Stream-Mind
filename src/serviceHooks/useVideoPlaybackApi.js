@@ -14,7 +14,9 @@ const useVideoPlaybackApi = (movieId) => {
     const filteredVideo = videos.results.filter(
       (video) => video.type === "Trailer" || video.type === "Teaser"
     );
-    dispatch(addVideoTeaser(filteredVideo[0]));
+    const isTrailer = filteredVideo.find((video) => video.type === "Trailer");
+    const isTeaser = filteredVideo.find((video) => video.type === "Teaser");
+    dispatch(addVideoTeaser(isTrailer ? isTrailer : isTeaser));
   };
   useEffect(() => {
     fetchVideoTeaser();

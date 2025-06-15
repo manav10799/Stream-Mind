@@ -8,7 +8,6 @@ const userContext = createSlice({
       return action.payload;
     },
     updateUser: (state, action) => {
-      console.log(state, action.payload);
       return Object.assign(state, action.payload);
     },
     removeUser: () => {

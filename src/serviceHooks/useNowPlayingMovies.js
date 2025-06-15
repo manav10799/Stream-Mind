@@ -4,7 +4,9 @@ import { useEffect } from "react";
 import { useGetMoviesQuery } from "../ReduxSlice/movieApiQuery";
 
 const useNowPlayingMovies = () => {
-  const { data: nowPlayingMovies } = useGetMoviesQuery();
+  const { data: nowPlayingMovies } = useGetMoviesQuery({
+    movieParams: "now_playing",
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addNowPlayingMovies(nowPlayingMovies?.results));
