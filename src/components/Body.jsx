@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router";
+import {
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+  useNavigate,
+} from "react-router";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
@@ -9,16 +14,20 @@ import Footer from "../layout/Footer";
 
 const Body = () => {
   const dispatchUser = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         dispatchUser(addUser({ uid, email, displayName, photoURL }));
+        navigate("/browse");
       } else {
         dispatchUser(removeUser());
+        navigate("/");
       }
     });
+    return () => unsubscribe();
   }, []);
 
   return (

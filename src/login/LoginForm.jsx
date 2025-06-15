@@ -6,9 +6,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../ReduxSlice/UserContext";
+import { PROFILE_AVATAR } from "../utils/constants";
 
 const LoginForm = () => {
   const [isSignUpForm, setisSignUpForm] = useState(false);
@@ -22,7 +22,6 @@ const LoginForm = () => {
   const toggleSignInForm = () => {
     setisSignUpForm(!isSignUpForm);
   };
-  const navigate = useNavigate();
   const handleSignInUpButton = () => {
     const emailErr = checkValidEmail(email.current.value);
     const passwordErr = checkValidPassword(password.current.value);
@@ -38,15 +37,14 @@ const LoginForm = () => {
         .then((userCredential) => {
           updateProfile(auth.currentUser, {
             displayName: name.current.value,
-            photoURL: "https://xsgames.co/randomusers/avatar.php?g=pixel",
+            photoURL: PROFILE_AVATAR,
           })
             .then((data) => {
               const user = {
                 displayName: name.current.value,
-                photoURL: "https://xsgames.co/randomusers/avatar.php?g=pixel",
+                photoURL: PROFILE_AVATAR,
               };
               dispatch(updateUser(user));
-              navigate("/browse");
             })
             .catch((error) => {});
         })
@@ -65,7 +63,6 @@ const LoginForm = () => {
           const user = {
             email: userCredential.user.email,
           };
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;

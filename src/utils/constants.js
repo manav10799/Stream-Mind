@@ -1,3 +1,5 @@
+import { TMDB_ACCESS_TOKEN } from "../env/env";
+
 export const LOGIN_IMAGE_PREFIX =
   "https://img10.hotstar.com/image/upload/f_auto,q_90,w_192/sources/r1/cms/prod/";
 export const uniqueParts = [
@@ -32,3 +34,19 @@ export const uniqueParts = [
   "7539/617539-v",
   "4362/184362-v",
 ];
+
+export const LOGO_HEADER =
+  "https://img.hotstar.com/image/upload/v1737554969/web-assets/prod/images/rebrand/logo.png";
+
+export const PROFILE_AVATAR =
+  "https://xsgames.co/randomusers/avatar.php?g=pixel";
+
+export const GET_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: "Bearer " + TMDB_ACCESS_TOKEN,
+  },
+};
+
+export const VIDEO_IMAGE_PREFIX = "https://image.tmdb.org/t/p/original";
