@@ -5,9 +5,8 @@ import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 const VideoTitle = ({ title, overView, movieId, isModal }) => {
   const dispatch = useDispatch();
   const handleShowTrailerButton = () => {
-    dispatch(toggleShowTrailer({ movieId, showTrailer: true }));
+    dispatch(toggleShowTrailer({ movieId: movieId, showTrailer: true }));
   };
-  const showTrailer = useSelector((store) => store?.trailer?.showTrailer);
   return (
     <div
       className={`absolute text-white left-20 ${isModal ? "top-30" : "top-80"}`}
@@ -19,7 +18,7 @@ const VideoTitle = ({ title, overView, movieId, isModal }) => {
         <p
           title={overView}
           className={`text-gray-300 mt-4" ${
-            isModal ? "w-1/4 text-wrap  truncate-2-custom" : "w-1/3"
+            isModal ? "w-1/4 text-wrap truncate-2-custom" : "w-1/3"
           }`}
         >
           {overView}

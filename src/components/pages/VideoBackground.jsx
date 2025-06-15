@@ -5,10 +5,10 @@ import useVideoPlaybackApi from "../../serviceHooks/useVideoPlaybackApi";
 
 const VideoBackground = ({ background, movieId }) => {
   const selector = useSelector((store) => store?.trailer);
-  const videoTeaserSelector = useSelector(
-    (store) => store?.movies?.videoTeaserKey
-  );
   useVideoPlaybackApi(movieId);
+  const videoTeaserSelector = useSelector(
+    (store) => store?.movies?.videoTeaserKey[movieId]
+  );
   return (
     <div>
       {selector.showTrailer && selector.movieId === movieId ? (

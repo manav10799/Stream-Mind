@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GET_OPTIONS } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addVideoTeaser } from "../ReduxSlice/moviesSlice";
@@ -16,7 +16,12 @@ const useVideoPlaybackApi = (movieId) => {
     );
     const isTrailer = filteredVideo.find((video) => video.type === "Trailer");
     const isTeaser = filteredVideo.find((video) => video.type === "Teaser");
-    dispatch(addVideoTeaser(isTrailer ? isTrailer : isTeaser));
+    dispatch(
+      addVideoTeaser({
+        movieId,
+        video: isTrailer || isTeaser,
+      })
+    );
   };
   useEffect(() => {
     fetchVideoTeaser();

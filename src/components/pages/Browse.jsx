@@ -10,7 +10,7 @@ const Browse = () => {
   usePopularMovies();
   return (
     <div>
-      <MainContainer defaultMovie={0} />
+      <MainContainer />
       <MovieCardsContainer />
     </div>
   );

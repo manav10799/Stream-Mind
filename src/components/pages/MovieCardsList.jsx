@@ -9,6 +9,7 @@ import MainContainer from "./MainContainer";
 const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [showMovieModal, setShowMovieModal] = useState();
+  const dispatch = useDispatch();
 
   const style = {
     position: "absolute",
@@ -46,6 +47,8 @@ const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         onClose={() => {
+          // Fix the Bug where Main Movie Trailer Should be show
+          dispatch(toggleShowTrailer({ movieId: null, showTrailer: null }));
           setIsModelOpen(false);
         }}
       >
