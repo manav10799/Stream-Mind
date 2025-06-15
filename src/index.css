@@ -40,3 +40,11 @@
 .hide-scrollbar {
   scrollbar-width: none;
 }
+
+.truncate-2-custom {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

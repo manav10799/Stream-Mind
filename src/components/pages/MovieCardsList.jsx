@@ -6,10 +6,9 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import MainContainer from "./MainContainer";
 
-const MovieCardsList = ({ listTitle, moviesSelector }) => {
+const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [showMovieModal, setShowMovieModal] = useState();
-  const dispatch = useDispatch();
 
   const style = {
     position: "absolute",
@@ -51,7 +50,11 @@ const MovieCardsList = ({ listTitle, moviesSelector }) => {
         }}
       >
         <Box sx={style}>
-          <MainContainer id={showMovieModal} />
+          <MainContainer
+            id={showMovieModal}
+            titleSelector={titleSelector}
+            isModal={true}
+          />
         </Box>
       </Modal>
     </div>

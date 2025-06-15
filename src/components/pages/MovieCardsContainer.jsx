@@ -9,15 +9,23 @@ const MovieCardsContainer = () => {
   const upcomingMoviesSelector = useSelector(
     (store) => store?.movies?.upcomingMovies
   );
+  const popularMovies = useSelector((store) => store?.movies?.popularMovies);
   return (
     <div className="p-8 flex flex-col gap-4">
       <MovieCardsList
         listTitle="Now Playing Movies"
+        titleSelector="nowPlayingMovies"
         moviesSelector={nowPlayingMoviesSelector}
       />
       <MovieCardsList
-        listTitle="Upcoming movies"
+        listTitle="Upcoming Movies"
+        titleSelector="upcomingMovies"
         moviesSelector={upcomingMoviesSelector}
+      />
+      <MovieCardsList
+        listTitle="Popular Movies"
+        titleSelector="popularMovies"
+        moviesSelector={popularMovies}
       />
     </div>
   );

@@ -13,7 +13,7 @@ const VideoBackground = ({ background, movieId }) => {
     <div>
       {selector.showTrailer && selector.movieId === movieId ? (
         <iframe
-          className="w-full h-svh aspect-video border-none"
+          className="w-full aspect-video"
           src={`https://www.youtube.com/embed/${videoTeaserSelector.key}?autoplay=1`}
           title="YouTube video player"
           allow="accelerometer; autoplay"

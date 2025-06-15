@@ -3,8 +3,11 @@ import { useSelector } from "react-redux";
 import VideoBackground from "./VideoBackground";
 import VideoTitle from "./VideoTitle";
 
-const MainContainer = ({ defaultMovie, id }) => {
-  const movies = useSelector((store) => store?.movies?.nowPlayingMovies);
+const MainContainer = ({ defaultMovie, id, titleSelector, isModal }) => {
+  let movies = useSelector((store) => store?.movies?.nowPlayingMovies);
+  if (titleSelector) {
+    movies = useSelector((store) => store?.movies?.[titleSelector]);
+  }
   if (!movies) return;
   const showTrailer =
     defaultMovie === 0
@@ -17,6 +20,7 @@ const MainContainer = ({ defaultMovie, id }) => {
           title={showTrailer?.original_title}
           overView={showTrailer?.overview}
           movieId={showTrailer?.id}
+          isModal={isModal}
         />
         <VideoBackground
           background={showTrailer?.backdrop_path}
