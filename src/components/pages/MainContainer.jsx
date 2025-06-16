@@ -20,6 +20,8 @@ const MainContainer = ({ id, titleSelector, isModal }) => {
           overView={showTrailer?.overview}
           movieId={showTrailer?.id}
           isModal={isModal}
+          showTrailer={showTrailer}
+          titleSelector={titleSelector}
         />
         <VideoBackground
           background={showTrailer?.backdrop_path}

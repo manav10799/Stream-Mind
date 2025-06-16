@@ -8,6 +8,7 @@ import MainContainer from "./MainContainer";
 
 const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
+  const [favTitleSelector, setFavTitleSelector] = useState();
   const [showMovieModal, setShowMovieModal] = useState();
   const dispatch = useDispatch();
 
@@ -31,6 +32,7 @@ const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
               className="cursor-pointer"
               onClick={() => {
                 setShowMovieModal(movie.id);
+                setFavTitleSelector(movie?.titleSelector);
                 setIsModelOpen(true);
               }}
             >
@@ -55,7 +57,7 @@ const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
         <Box sx={style}>
           <MainContainer
             id={showMovieModal}
-            titleSelector={titleSelector}
+            titleSelector={titleSelector ? titleSelector : favTitleSelector}
             isModal={true}
           />
         </Box>

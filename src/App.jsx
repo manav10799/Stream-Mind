@@ -1,12 +1,11 @@
 import { Provider } from "react-redux";
 import "./App.css";
 import Body from "./components/Body";
-import Footer from "./layout/Footer";
-import Header from "./layout/Header";
 import AppStore from "./ReduxStore/AppStore";
 import { RouterProvider, createBrowserRouter } from "react-router";
 import Login from "./login/login";
 import Browse from "./components/pages/Browse";
+import Favourites from "./components/pages/Favourites";
 
 function App() {
   return (
@@ -32,6 +31,10 @@ const browserRouter = createBrowserRouter([
       {
         path: "/browse",
         element: <Browse />,
+      },
+      {
+        path: "/favourites",
+        element: <Favourites />,
       },
     ],
   },

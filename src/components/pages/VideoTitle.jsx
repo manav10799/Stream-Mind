@@ -1,11 +1,39 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
+import { auth, db } from "../../utils/firebase";
+import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 
-const VideoTitle = ({ title, overView, movieId, isModal }) => {
+const VideoTitle = ({
+  title,
+  overView,
+  movieId,
+  isModal,
+  showTrailer,
+  titleSelector,
+}) => {
   const dispatch = useDispatch();
   const handleShowTrailerButton = () => {
     dispatch(toggleShowTrailer({ movieId: movieId, showTrailer: true }));
+  };
+
+  async function addFavorite(item) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const favRef = doc(db, "favorites", user.uid);
+    await setDoc(
+      favRef,
+      {
+        items: arrayUnion(item),
+      },
+      { merge: true }
+    );
+  }
+
+  const handleAddWishlist = () => {
+    console.log();
+    addFavorite({ ...showTrailer, titleSelector });
   };
   return (
     <div
@@ -33,6 +61,7 @@ const VideoTitle = ({ title, overView, movieId, isModal }) => {
           <i
             className="bi bi-file-plus-fill text-4xl text-gray-300 cursor-pointer"
             title="wishlist"
+            onClick={handleAddWishlist}
           ></i>
         </div>
       </div>
