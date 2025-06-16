@@ -13,16 +13,25 @@ const Header = () => {
       .catch((error) => {});
   };
   return (
-    <div className="h-20 bg-stone-900 relative">
+    <div className="h-20 bg-stone-900 fixed w-full z-20 top-0">
       <div className="z-10 p-4 opacity-99 flex items-center justify-between">
         <Link to="/browse">
           <img className="w-16 ml-20" src={LOGO_HEADER} />
         </Link>
         <div className="pr-20 cursor-pointer flex items-center gap-4">
           {userInfo && (
-            <Link to="/favourites">
-              <i className="bi bi-collection-play-fill text-white text-2xl mr-4"></i>
-            </Link>
+            <div className="flex items-center">
+              <Link to="/search">
+                <img
+                  src="../../public/gemini.svg"
+                  className="h-7 mr-6"
+                  title="AI Movie Search"
+                />
+              </Link>
+              <Link to="/favourites">
+                <i className="bi bi-collection-play-fill text-white text-2xl mr-4"></i>
+              </Link>
+            </div>
           )}
           {userInfo?.photoURL ? (
             <img src={userInfo.photoURL} className="h-10 rounded-full" />

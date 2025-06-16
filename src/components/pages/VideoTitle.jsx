@@ -45,7 +45,7 @@ const VideoTitle = ({
         </div>
         <p
           title={overView}
-          className={`text-gray-300 mt-4" ${
+          className={`text-gray-300 mt-4 mb-1" ${
             isModal ? "w-1/4 text-wrap truncate-2-custom" : "w-1/3"
           }`}
         >

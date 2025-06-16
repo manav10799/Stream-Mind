@@ -49,12 +49,15 @@ const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         onClose={() => {
-          // Fix the Bug where Main Movie Trailer Should be show
           dispatch(toggleShowTrailer({ movieId: null, showTrailer: null }));
           setIsModelOpen(false);
         }}
       >
         <Box sx={style}>
+          <i
+            className="bi bi-x-circle-fill absolute right-[20px] top-[10px] text-xl cursor-pointer"
+            onClick={() => setIsModelOpen(false)}
+          ></i>
           <MainContainer
             id={showMovieModal}
             titleSelector={titleSelector ? titleSelector : favTitleSelector}

@@ -38,8 +38,10 @@ const Body = () => {
   return (
     <div>
       <Header></Header>
-      <Outlet />
-      <Footer />
+      <div className="mt-20">
+        <Outlet />
+      </div>
+      {/* <Footer /> */}
     </div>
   );
 };

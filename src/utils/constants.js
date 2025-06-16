@@ -35,6 +35,10 @@ export const uniqueParts = [
   "4362/184362-v",
 ];
 
+export const API_PREFIX = "https://api.themoviedb.org/3/movie";
+export const API_SEARCH_PREFIX =
+  "https://api.themoviedb.org/3/search/movie?query=";
+
 export const LOGO_HEADER =
   "https://img.hotstar.com/image/upload/v1737554969/web-assets/prod/images/rebrand/logo.png";
 

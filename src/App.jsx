@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 import Login from "./login/login";
 import Browse from "./components/pages/Browse";
 import Favourites from "./components/pages/Favourites";
+import SearchMovies from "./components/pages/SearchMovies";
 
 function App() {
   return (
@@ -35,6 +36,10 @@ const browserRouter = createBrowserRouter([
       {
         path: "/favourites",
         element: <Favourites />,
+      },
+      {
+        path: "/search",
+        element: <SearchMovies />,
       },
     ],
   },
