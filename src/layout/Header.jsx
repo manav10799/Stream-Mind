@@ -23,7 +23,7 @@ const Header = () => {
             <div className="flex items-center">
               <Link to="/search">
                 <img
-                  src="../../public/gemini.svg"
+                  src="../../gemini.svg"
                   className="h-7 mr-6"
                   title="AI Movie Search"
                 />

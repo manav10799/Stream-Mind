@@ -11,7 +11,7 @@ import SearchMovies from "./components/pages/SearchMovies";
 function App() {
   return (
     <>
-      <div className="w-auto h-screen">
+      <div className="w-auto">
         <Provider store={AppStore}>
           <RouterProvider router={browserRouter}></RouterProvider>
         </Provider>
