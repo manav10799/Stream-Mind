@@ -1,3 +1,5 @@
+import { TMDB_ACCESS_TOKEN } from "../env/env";
+
 export const LOGIN_IMAGE_PREFIX =
   "https://img10.hotstar.com/image/upload/f_auto,q_90,w_192/sources/r1/cms/prod/";
 export const uniqueParts = [
@@ -47,8 +49,9 @@ export const GET_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: "Bearer " + process.env.REACT_APP_TMDB_ACCESS_TOKEN,
+    Authorization: "Bearer " + TMDB_ACCESS_TOKEN,
   },
 };
 
 export const VIDEO_IMAGE_PREFIX = "https://image.tmdb.org/t/p/original";
+export const GEMINI_BACKEND_API = "https://stream-mind-backend.vercel.app/";

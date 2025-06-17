@@ -5,7 +5,11 @@ import LoginIllustartion from "./loginIllustartion";
 
 const Login = () => {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="overflow-hidden">
+      <img
+        className="fixed opacity-30"
+        src="https://beam-images.warnermediacdn.com/2024-04/OOF_stars_16x9.png?host=wbd-dotcom-drupal-prd-us-east-1.s3.amazonaws.com&w=2000"
+      />
       <div className="absolute z-15 md:px-20 py-10 flex justify-between w-full max-sm:flex-col lg:flex-row max-sm:px-8">
         <div>
           <p className="text-4xl text-white font-bold xl:w-150 lg:w-100 md:w-60 text-center md:text-wrap max-sm:truncate">

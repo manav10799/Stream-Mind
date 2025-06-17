@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import {
   API_SEARCH_PREFIX,
+  GEMINI_BACKEND_API,
   GET_OPTIONS,
   VIDEO_IMAGE_PREFIX,
 } from "../../utils/constants";
@@ -62,7 +63,7 @@ const SearchMovies = () => {
     try {
       // 1. Call your Node.js backend for Gemini recommendations
       const backendResponse = await fetch(
-        "http://localhost:3001/api/get-gemini-recommendations",
+        GEMINI_BACKEND_API + "api/get-gemini-recommendations",
         {
           // IMPORTANT: Change for production deployment
           method: "POST",
@@ -113,7 +114,6 @@ const SearchMovies = () => {
       console.error("Error during search process:", error);
     }
     setCurrentValue(currentSearchQuery);
-    setSearchText("");
   };
 
   const throttleClick = useMemo(() => throttle(handleGptSearch, 2000), []);

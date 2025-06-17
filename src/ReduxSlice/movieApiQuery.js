@@ -1,14 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { TMDB_ACCESS_TOKEN } from "../env/env";
 import { API_PREFIX } from "../utils/constants";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_PREFIX, // Base URL without the page
     prepareHeaders: (headers) => {
-      headers.set(
-        "Authorization",
-        `Bearer ${process.env.REACT_APP_TMDB_ACCESS_TOKEN}`
-      );
+      headers.set("Authorization", `Bearer ${TMDB_ACCESS_TOKEN}`);
       headers.set("Accept", "application/json");
       return headers;
     },
