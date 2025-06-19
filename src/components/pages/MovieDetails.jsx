@@ -14,8 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 import VideoBackground from "./VideoBackground";
 import { useLocation } from "react-router";
+import { auth, db } from "../../utils/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  addFavouriteMovies,
+  removeFavouriteMovies,
+} from "../../ReduxSlice/moviesSlice";
 
-const MovieDetails = ({ movieId }) => {
+const MovieDetails = ({ movieId, setIsModelOpen }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const selector = useSelector((store) => store?.trailer);
@@ -53,6 +59,35 @@ const MovieDetails = ({ movieId }) => {
     const result = await data.json();
     if (result) setIsLoading(false);
     setMovieDetails(result);
+  };
+
+  const handleRemoveFavourites = async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      return;
+    }
+
+    const favRef = doc(db, "favorites", user.uid);
+    try {
+      const docSnap = await getDoc(favRef);
+      if (docSnap.exists()) {
+        const existingItems = docSnap.data().items || [];
+        const updatedItems = existingItems.filter(
+          (item) => item.id !== movieId
+        );
+
+        if (updatedItems.length === existingItems.length) {
+          return;
+        }
+        await updateDoc(favRef, {
+          items: updatedItems,
+        });
+        setIsModelOpen();
+        dispatch(removeFavouriteMovies(movieId));
+      }
+    } catch (error) {
+      console.error("Error removing favorite:", error);
+    }
   };
 
   useEffect(() => {
@@ -96,8 +131,14 @@ const MovieDetails = ({ movieId }) => {
             </p>
             <div className="flex items-center mt-4">
               <WacthTrailerButton onClick={handleShowTrailerButton} />
-              {location.pathname !== "/favourites" && (
+              {location.pathname !== "/favourites" ? (
                 <AddFavButton onClick={handleAddWishlist} />
+              ) : (
+                <i
+                  className="bi bi-trash cursor-pointer text-xl"
+                  title="Remove from favourites"
+                  onClick={handleRemoveFavourites}
+                ></i>
               )}
             </div>
           </div>

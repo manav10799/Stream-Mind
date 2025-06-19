@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { VIDEO_IMAGE_PREFIX } from "../../utils/constants";
 import MovieDetailsModal from "../common/MovieDetailsModal";
 
-const MovieCardsList = ({ listTitle, moviesSelector }) => {
+const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [movieId, setShowMovieId] = useState();
 
@@ -20,18 +20,14 @@ const MovieCardsList = ({ listTitle, moviesSelector }) => {
       <h3 className="text-2xl mb-2 font-semibold text-gray-200">{listTitle}</h3>
       <div
         className={`w-full ${
-          listTitle === "Favourites" ? "" : "overflow-x-scroll hide-scrollbar"
+          isFromFav ? "" : "overflow-x-scroll hide-scrollbar"
         }`}
       >
-        <div
-          className={`flex gap-3 ${
-            listTitle === "Favourites" ? "flex-wrap" : "w-max"
-          }`}
-        >
+        <div className={`flex gap-3 ${isFromFav ? "flex-wrap" : "w-max"}`}>
           {moviesSelector?.map((movie) => (
             <div
               key={movie.id}
-              className="cursor-pointer"
+              className={`cursor-pointer ${isFromFav ? "relative" : ""}`}
               onClick={() => {
                 setShowMovieId(movie.id);
                 setIsModelOpen(true);

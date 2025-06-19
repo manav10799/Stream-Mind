@@ -33,7 +33,7 @@ const MovieDetailsModal = ({ isModelOpen, movieId, setIsModelOpen }) => {
               setIsModelOpen(false);
             }}
           ></i>
-          <MovieDetails movieId={movieId} />
+          <MovieDetails movieId={movieId} setIsModelOpen={setIsModelOpen} />
         </Box>
       </Modal>
     </div>
