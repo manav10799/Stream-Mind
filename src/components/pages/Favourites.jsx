@@ -26,11 +26,7 @@ const Favourites = () => {
   return (
     <div className="p-6">
       <div>
-        <MovieCardsList
-          listTitle="Favourites"
-          moviesSelector={favorites}
-          titleSelector={favorites.titleSelector}
-        />
+        <MovieCardsList listTitle="Favourites" moviesSelector={favorites} />
       </div>
     </div>
   );

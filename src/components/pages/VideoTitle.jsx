@@ -1,39 +1,35 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
-import { auth, db } from "../../utils/firebase";
-import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 
-const VideoTitle = ({
-  title,
-  overView,
-  movieId,
-  isModal,
-  showTrailer,
-  titleSelector,
-}) => {
+import Snackbar from "@mui/material/Snackbar";
+import AddFavButton from "../common/AddFavButton";
+import useAddFavorites from "../../serviceHooks/useAddFavorites";
+import WacthTrailerButton from "../common/WacthTrailerButton";
+
+const VideoTitle = ({ title, overView, movieId, isModal, showTrailer }) => {
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "right",
+    message: "",
+  });
+  const { vertical, horizontal, open, message } = state;
+
   const dispatch = useDispatch();
+  const handleClick = (newState) => () => {
+    setState({ ...newState, open: true });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
   const handleShowTrailerButton = () => {
     dispatch(toggleShowTrailer({ movieId: movieId, showTrailer: true }));
   };
 
-  async function addFavorite(item) {
-    const user = auth.currentUser;
-    if (!user) return;
-
-    const favRef = doc(db, "favorites", user.uid);
-    await setDoc(
-      favRef,
-      {
-        items: arrayUnion(item),
-      },
-      { merge: true }
-    );
-  }
-
   const handleAddWishlist = () => {
-    console.log();
-    addFavorite({ ...showTrailer, titleSelector });
+    useAddFavorites({ ...showTrailer }, handleClick);
   };
   return (
     <div
@@ -52,19 +48,17 @@ const VideoTitle = ({
           {overView}
         </p>
         <div className="flex items-center mt-4">
-          <button
-            className="mr-2 cursor-pointer px-20 py-3 rounded-xl bg-linear-65 from-purple-500 to-pink-500"
-            onClick={handleShowTrailerButton}
-          >
-            <i className="bi bi-play-fill"></i> Watch Trailer
-          </button>
-          <i
-            className="bi bi-file-plus-fill text-4xl text-gray-300 cursor-pointer"
-            title="wishlist"
-            onClick={handleAddWishlist}
-          ></i>
+          <WacthTrailerButton onClick={handleShowTrailerButton} />
+          <AddFavButton onClick={handleAddWishlist} />
         </div>
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal, message }}
+        open={open}
+        onClose={handleClose}
+        message={message}
+        key={vertical + horizontal}
+      />
     </div>
   );
 };

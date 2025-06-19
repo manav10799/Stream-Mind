@@ -9,8 +9,14 @@ const movieSearch = createSlice({
   reducers: {
     addMovies: (state, action) => {
       const { searchValue, searchResults } = action.payload;
-      state.searchResults = Object.assign(state.searchResults, searchResults);
-      state.searchValue = Object.assign(state.searchValue, searchValue);
+      state.searchResults = {
+        ...state.searchResults,
+        ...searchResults,
+      };
+      state.searchValue = {
+        ...state.searchValue,
+        ...searchValue,
+      };
     },
   },
 });

@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import MovieCardsList from "./MovieCardsList";
 import { useSelector } from "react-redux";
 
@@ -14,17 +14,14 @@ const MovieCardsContainer = () => {
     <div className="p-8 flex flex-col gap-4">
       <MovieCardsList
         listTitle="Now Playing Movies"
-        titleSelector="nowPlayingMovies"
         moviesSelector={nowPlayingMoviesSelector}
       />
       <MovieCardsList
         listTitle="Upcoming Movies"
-        titleSelector="upcomingMovies"
         moviesSelector={upcomingMoviesSelector}
       />
       <MovieCardsList
         listTitle="Popular Movies"
-        titleSelector="popularMovies"
         moviesSelector={popularMovies}
       />
     </div>

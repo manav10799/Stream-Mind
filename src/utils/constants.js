@@ -53,5 +53,6 @@ export const GET_OPTIONS = {
   },
 };
 
+export const MOVIE_DETAILS_PREFIX = "https://api.themoviedb.org/3/movie/";
 export const VIDEO_IMAGE_PREFIX = "https://image.tmdb.org/t/p/original";
 export const GEMINI_BACKEND_API = "https://stream-mind-backend.vercel.app/";

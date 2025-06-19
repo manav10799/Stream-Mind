@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 import { VIDEO_IMAGE_PREFIX } from "../../utils/constants";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import MainContainer from "./MainContainer";
+import MovieDetailsModal from "../common/MovieDetailsModal";
 
-const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
+const MovieCardsList = ({ listTitle, moviesSelector }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
-  const [favTitleSelector, setFavTitleSelector] = useState();
-  const [showMovieModal, setShowMovieModal] = useState();
+  const [movieId, setShowMovieId] = useState();
   const dispatch = useDispatch();
 
   const style = {
@@ -31,8 +27,7 @@ const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
               key={movie.id}
               className="cursor-pointer"
               onClick={() => {
-                setShowMovieModal(movie.id);
-                setFavTitleSelector(movie?.titleSelector);
+                setShowMovieId(movie.id);
                 setIsModelOpen(true);
               }}
             >
@@ -44,27 +39,11 @@ const MovieCardsList = ({ listTitle, moviesSelector, titleSelector }) => {
           ))}
         </div>
       </div>
-      <Modal
-        open={isModelOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        onClose={() => {
-          dispatch(toggleShowTrailer({ movieId: null, showTrailer: null }));
-          setIsModelOpen(false);
-        }}
-      >
-        <Box sx={style}>
-          <i
-            className="bi bi-x-circle-fill absolute right-[20px] top-[10px] text-xl cursor-pointer"
-            onClick={() => setIsModelOpen(false)}
-          ></i>
-          <MainContainer
-            id={showMovieModal}
-            titleSelector={titleSelector ? titleSelector : favTitleSelector}
-            isModal={true}
-          />
-        </Box>
-      </Modal>
+      <MovieDetailsModal
+        isModelOpen={isModelOpen}
+        setIsModelOpen={setIsModelOpen}
+        movieId={movieId}
+      />
     </div>
   );
 };
