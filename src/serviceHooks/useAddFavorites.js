@@ -47,7 +47,11 @@ const useAddFavorites = async (item, handleClick) => {
       })();
     }
   } catch (error) {
-    console.error("Error adding favorite:", error);
+    handleClick({
+      vertical: "top",
+      horizontal: "right",
+      message: "Error adding favorite " + error,
+    })();
   }
 };
 

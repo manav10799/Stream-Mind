@@ -10,6 +10,7 @@ import { addMovies } from "../../ReduxSlice/movieSearchSlice";
 import Snackbar from "@mui/material/Snackbar";
 import Skeleton from "@mui/material/Skeleton";
 import MovieDetailsModal from "../common/MovieDetailsModal";
+import Facts from "./Facts";
 
 const SearchMovies = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -147,6 +148,8 @@ const SearchMovies = () => {
           onClick={handleGptSearch}
         ></i>
       </div>
+      <Facts />
+
       {!isLoading ? (
         <div className="text-white">
           <div className="w-full mt-10">
