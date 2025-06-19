@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { LOGO_HEADER } from "../utils/constants";
 import { Link } from "react-router";
 
 const Header = () => {
