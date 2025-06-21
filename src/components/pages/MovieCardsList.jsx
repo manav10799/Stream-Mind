@@ -6,9 +6,10 @@ import {
   VIDEO_IMAGE_PREFIX,
 } from "../../utils/constants";
 import MovieDetailsModal from "../common/MovieDetailsModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import useCanPerformActions from "../../serviceHooks/useCanPerformActions";
+import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 
 const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
   const [isRecommended, setIsRecommended] = useState(false);
@@ -17,6 +18,7 @@ const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [movieId, setShowMovieId] = useState();
   const favSelector = useSelector((store) => store?.movies?.favourites);
+  const dispatch = useDispatch();
   const timer = useRef();
   const [state, setState] = useState({
     open: false,
@@ -132,6 +134,7 @@ const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
             className="button cursor-pointer"
             onClick={handleSurpriseMe}
             aria-label="Surprise Me  🤯"
+            title="Click to receive AI-powered recommendations based on your searches and favorites"
           ></button>
         )}
       </div>
@@ -151,6 +154,9 @@ const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
                 key={movie.id}
                 className={`cursor-pointer ${isFromFav ? "relative" : ""}`}
                 onClick={() => {
+                  dispatch(
+                    toggleShowTrailer({ movieId: null, showTrailer: null })
+                  );
                   setShowMovieId(movie.id);
                   setIsModelOpen(true);
                 }}

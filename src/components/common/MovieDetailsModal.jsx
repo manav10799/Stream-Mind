@@ -9,6 +9,7 @@ const MovieDetailsModal = ({
   movieId,
   setIsModelOpen,
   isRecommended,
+  poster,
 }) => {
   const dispatch = useDispatch();
   const style = {

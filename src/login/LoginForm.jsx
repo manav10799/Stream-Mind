@@ -9,8 +9,10 @@ import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../ReduxSlice/UserContext";
 import { PROFILE_AVATAR } from "../utils/constants";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [isSignUpForm, setisSignUpForm] = useState(false);
   const [emailValidation, setEmailValidation] = useState("");
   const [passValidation, setpassValidation] = useState("");
@@ -45,6 +47,7 @@ const LoginForm = () => {
                 photoURL: PROFILE_AVATAR,
               };
               dispatch(updateUser(user));
+              navigate("/browse");
             })
             .catch((error) => {});
         })
@@ -63,6 +66,7 @@ const LoginForm = () => {
           const user = {
             email: userCredential.user.email,
           };
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;

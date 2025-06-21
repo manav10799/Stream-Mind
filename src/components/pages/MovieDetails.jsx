@@ -23,7 +23,7 @@ import {
 } from "../../ReduxSlice/moviesSlice";
 import useCanPerformActions from "../../serviceHooks/useCanPerformActions";
 
-const MovieDetails = ({ movieId, setIsModelOpen, isRecommended }) => {
+const MovieDetails = ({ movieId, setIsModelOpen, isRecommended, poster }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const selector = useSelector((store) => store?.trailer);
@@ -152,7 +152,7 @@ const MovieDetails = ({ movieId, setIsModelOpen, isRecommended }) => {
                 ({new Date(movieDetails?.release_date).getFullYear()})
               </p>
               <i
-                title="Click To Make It Emojinal"
+                title="Click To Make It Emojinal (AI Powered)"
                 className="ml-4 bi bi-magic text-4xl text-red-400 cursor-pointer"
                 onClick={handleEmojiClick}
               ></i>
