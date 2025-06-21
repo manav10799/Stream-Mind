@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   API_SEARCH_PREFIX,
+  GEMINI_BACKEND_API,
   GET_OPTIONS,
   VIDEO_IMAGE_PREFIX,
 } from "../../utils/constants";
@@ -33,7 +34,7 @@ const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
     setState({ ...state, open: false });
   };
   const fetchRecommendedMovie = async (movieList) => {
-    const res = await fetch("http://localhost:3001/api/recommend", {
+    const res = await fetch(GEMINI_BACKEND_API + "api/recommend", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  GEMINI_BACKEND_API,
   GET_OPTIONS,
   MOVIE_DETAILS_PREFIX,
   VIDEO_IMAGE_PREFIX,
@@ -46,7 +47,7 @@ const MovieDetails = ({ movieId, setIsModelOpen, isRecommended }) => {
 
   const handleConvert = async () => {
     if (!emojiSelector[movieDetails?.title]) {
-      fetch("http://localhost:3001/api/groq", {
+      fetch(GEMINI_BACKEND_API + "api/groq", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ movieTitle: movieDetails?.title }),
