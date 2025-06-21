@@ -5,7 +5,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../ReduxSlice/UserContext";
 import Header from "../layout/Header";
-import Footer from "../layout/Footer";
 import useUpcomingMovies from "../serviceHooks/useUpcomingMovies";
 import usePopularMovies from "../serviceHooks/useAddPopularMovies";
 import useNowPlayingMovies from "../serviceHooks/useNowPlayingMovies";

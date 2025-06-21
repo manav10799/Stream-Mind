@@ -5,7 +5,7 @@ import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 import Snackbar from "@mui/material/Snackbar";
 import AddFavButton from "../common/AddFavButton";
 import useAddFavorites from "../../serviceHooks/useAddFavorites";
-import WacthTrailerButton from "../common/WacthTrailerButton";
+import WatchTrailerButton from "../common/WatchTrailerButton";
 
 const VideoTitle = ({ title, overView, movieId, isModal, showTrailer }) => {
   const [state, setState] = useState({
@@ -48,7 +48,10 @@ const VideoTitle = ({ title, overView, movieId, isModal, showTrailer }) => {
           {overView}
         </p>
         <div className="flex items-center mt-4">
-          <WacthTrailerButton onClick={handleShowTrailerButton} />
+          <WatchTrailerButton
+            onClick={handleShowTrailerButton}
+            padding="px-16"
+          />
           <AddFavButton onClick={handleAddWishlist} />
         </div>
       </div>

@@ -11,6 +11,8 @@ import Snackbar from "@mui/material/Snackbar";
 import Skeleton from "@mui/material/Skeleton";
 import MovieDetailsModal from "../common/MovieDetailsModal";
 import Facts from "./Facts";
+import useCanPerformActions from "../../serviceHooks/useCanPerformActions";
+import useClearLocalStorage from "../../serviceHooks/useClearLocalStorage";
 
 const SearchMovies = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,75 +59,84 @@ const SearchMovies = () => {
     return result.results;
   };
   const handleGptSearch = async () => {
-    setIsLoading(true);
-    if (isClicked) return;
-    setIsClicked(true);
-    if (timeOutRef.current) clearTimeout(timeOutRef.current);
-    timeOutRef.current = setTimeout(() => setIsClicked(false), 2000);
-    const currentSearchQuery = searchText?.current?.value.trim();
+    if (useCanPerformActions("MovieSearch")) {
+      setIsLoading(true);
+      if (isClicked) return;
+      setIsClicked(true);
+      if (timeOutRef.current) clearTimeout(timeOutRef.current);
+      timeOutRef.current = setTimeout(() => setIsClicked(false), 2000);
+      const currentSearchQuery = searchText?.current?.value.trim();
 
-    if (selector.searchResults[currentSearchQuery]) {
-      handleClick({
-        vertical: "top",
-        horizontal: "right",
-        result: "Results already fetched for " + currentSearchQuery,
-      })();
-      setIsLoading(false);
-      setCurrentValue(currentSearchQuery);
-      return;
-    }
+      if (selector.searchResults[currentSearchQuery]) {
+        handleClick({
+          vertical: "top",
+          horizontal: "right",
+          result: "Results already fetched for " + currentSearchQuery,
+        })();
+        setIsLoading(false);
+        setCurrentValue(currentSearchQuery);
+        return;
+      }
 
-    if (!currentSearchQuery) {
-      return;
-    }
+      if (!currentSearchQuery) {
+        return;
+      }
 
-    try {
-      const backendResponse = await fetch(
-        GEMINI_BACKEND_API + "api/get-gemini-recommendations",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ searchQuery: currentSearchQuery }),
-        }
-      );
-
-      if (!backendResponse.ok) {
-        const errorData = await backendResponse.json();
-        throw new Error(
-          errorData.error ||
-            "Failed to get Gemini recommendations from backend."
+      try {
+        const backendResponse = await fetch(
+          GEMINI_BACKEND_API + "api/get-gemini-recommendations",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ searchQuery: currentSearchQuery }),
+          }
         );
-      }
 
-      const backendData = await backendResponse.json();
-      const movieArray = backendData.recommendedNames;
-
-      const fetchedMoviePromises = movieArray.map((movieTitle) =>
-        fetchMoviesFromTmbdb(movieTitle)
-      );
-
-      const fetchedResults = await Promise.all(fetchedMoviePromises);
-      let filteredFetchedResults = [];
-      for (let subArray of fetchedResults) {
-        if (subArray.length >= 1) {
-          filteredFetchedResults.push(subArray[0]);
+        if (!backendResponse.ok) {
+          const errorData = await backendResponse.json();
+          throw new Error(
+            errorData.error ||
+              "Failed to get Gemini recommendations from backend."
+          );
         }
-      }
 
-      dispatch(
-        addMovies({
-          searchValue: {
-            [currentSearchQuery]: movieArray,
-          },
-          searchResults: {
-            [currentSearchQuery]: filteredFetchedResults,
-          },
-        })
-      );
-    } catch (error) {}
-    setCurrentValue(currentSearchQuery);
+        const backendData = await backendResponse.json();
+        const movieArray = backendData.recommendedNames;
+
+        const fetchedMoviePromises = movieArray.map((movieTitle) =>
+          fetchMoviesFromTmbdb(movieTitle)
+        );
+
+        const fetchedResults = await Promise.all(fetchedMoviePromises);
+        let filteredFetchedResults = [];
+        for (let subArray of fetchedResults) {
+          if (subArray.length >= 1) {
+            filteredFetchedResults.push(subArray[0]);
+          }
+        }
+
+        dispatch(
+          addMovies({
+            searchValue: {
+              [currentSearchQuery]: movieArray,
+            },
+            searchResults: {
+              [currentSearchQuery]: filteredFetchedResults,
+            },
+          })
+        );
+        useClearLocalStorage("tmlsm", movieArray);
+      } catch (error) {}
+      setCurrentValue(currentSearchQuery);
+    } else {
+      handleClick({
+        horizontal: "right",
+        vertical: "top",
+        result: "You exhausted today's limit. Please wait for 24 hours.",
+      })();
+    }
   };
 
   useEffect(() => {

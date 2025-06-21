@@ -7,6 +7,7 @@ const movieSlice = createSlice({
     upcomingMovies: null,
     popularMovies: null,
     favourites: null,
+    movieNameEmoji: {},
     videoTeaserKey: {},
   },
   reducers: {
@@ -31,6 +32,10 @@ const movieSlice = createSlice({
       const { movieId, video } = action.payload;
       state.videoTeaserKey[movieId] = video;
     },
+    addMovieEmoji: (state, action) => {
+      const { movieName, emoji } = action.payload;
+      state.movieNameEmoji[movieName] = emoji;
+    },
   },
 });
 
@@ -42,4 +47,5 @@ export const {
   addFavouriteMovies,
   addPopularMovies,
   removeFavouriteMovies,
+  addMovieEmoji,
 } = movieSlice.actions;

@@ -9,7 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import AddFavButton from "../common/AddFavButton";
 import useAddFavorites from "../../serviceHooks/useAddFavorites";
 import { Snackbar } from "@mui/material";
-import WacthTrailerButton from "../common/WacthTrailerButton";
+import WatchTrailerButton from "../common/WatchTrailerButton";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 import VideoBackground from "./VideoBackground";
@@ -17,20 +17,23 @@ import { useLocation } from "react-router";
 import { auth, db } from "../../utils/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import {
-  addFavouriteMovies,
+  addMovieEmoji,
   removeFavouriteMovies,
 } from "../../ReduxSlice/moviesSlice";
+import useCanPerformActions from "../../serviceHooks/useCanPerformActions";
 
-const MovieDetails = ({ movieId, setIsModelOpen }) => {
+const MovieDetails = ({ movieId, setIsModelOpen, isRecommended }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const selector = useSelector((store) => store?.trailer);
+  const emojiSelector = useSelector((store) => store?.movies.movieNameEmoji);
   const [state, setState] = useState({
     open: false,
     vertical: "top",
     horizontal: "right",
     message: "",
   });
+
   const { vertical, horizontal, open, message } = state;
 
   const handleClick = (newState) => () => {
@@ -39,6 +42,23 @@ const MovieDetails = ({ movieId, setIsModelOpen }) => {
 
   const handleClose = () => {
     setState({ ...state, open: false });
+  };
+
+  const handleConvert = async () => {
+    if (!emojiSelector[movieDetails?.title]) {
+      fetch("http://localhost:3001/api/groq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ movieTitle: movieDetails?.title }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const reply = data;
+          dispatch(
+            addMovieEmoji({ movieName: reply.movieTitle, emoji: reply.emoji })
+          );
+        });
+    }
   };
 
   const [isLoading, setIsLoading] = useState(false);
@@ -90,6 +110,18 @@ const MovieDetails = ({ movieId, setIsModelOpen }) => {
     }
   };
 
+  const handleEmojiClick = () => {
+    if (useCanPerformActions("handleConvertEmoji")) {
+      handleConvert();
+    } else {
+      handleClick({
+        vertical: "top",
+        horizontal: "right",
+        message: "You exhausted today's limit. Please wait for 24 hours.",
+      })();
+    }
+  };
+
   useEffect(() => {
     setIsLoading(true);
     fetchMovieDetails();
@@ -103,13 +135,26 @@ const MovieDetails = ({ movieId, setIsModelOpen }) => {
             src={VIDEO_IMAGE_PREFIX + movieDetails?.poster_path}
           />
           <div className="ml-4">
-            <div className="flex items-center text-container">
+            <div className="flex items-center text-container flex-wrap">
               <h1 className="text-3xl font-bold mr-2">
                 {movieDetails?.original_title}
+              </h1>
+              <h1 className="text-3xl font-bold mr-2">
+                {emojiSelector[movieDetails?.title] && (
+                  <i className="bi bi-caret-right mr-3"></i>
+                )}
+                <span className="font-bold">
+                  {emojiSelector[movieDetails?.title]}
+                </span>
               </h1>
               <p className="text-gray-200">
                 ({new Date(movieDetails?.release_date).getFullYear()})
               </p>
+              <i
+                title="Click To Make It Emojinal"
+                className="ml-4 bi bi-magic text-4xl text-red-400 cursor-pointer"
+                onClick={handleEmojiClick}
+              ></i>
             </div>
             <div className="flex items-center mt-2 relative">
               <p className="border w-max py-0.5 px-1 text-sm text-white/60 before:content-['.'] before:absolute before:left-6 before:top-0 before:text-white mr-3">
@@ -130,25 +175,29 @@ const MovieDetails = ({ movieId, setIsModelOpen }) => {
               {movieDetails?.overview}
             </p>
             <div className="flex items-center mt-4">
-              <WacthTrailerButton onClick={handleShowTrailerButton} />
-              {location.pathname !== "/favourites" ? (
-                <AddFavButton onClick={handleAddWishlist} />
-              ) : (
-                <i
-                  className="bi bi-trash cursor-pointer text-xl"
-                  title="Remove from favourites"
-                  onClick={handleRemoveFavourites}
-                ></i>
-              )}
+              <WatchTrailerButton
+                onClick={handleShowTrailerButton}
+                padding="px-10"
+              />
+              {!isRecommended &&
+                (location.pathname !== "/favourites" ? (
+                  <AddFavButton onClick={handleAddWishlist} />
+                ) : (
+                  <i
+                    className="bi bi-trash cursor-pointer text-xl"
+                    title="Remove from favourites"
+                    onClick={handleRemoveFavourites}
+                  ></i>
+                ))}
             </div>
+            <Snackbar
+              anchorOrigin={{ vertical, horizontal, message }}
+              open={open}
+              onClose={handleClose}
+              message={message}
+              key={vertical + horizontal}
+            />
           </div>
-          <Snackbar
-            anchorOrigin={{ vertical, horizontal, message }}
-            open={open}
-            onClose={handleClose}
-            message={message}
-            key={vertical + horizontal}
-          />
         </div>
       ) : (
         <div className="flex">

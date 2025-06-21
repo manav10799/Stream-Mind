@@ -4,7 +4,12 @@ import { useDispatch } from "react-redux";
 import { toggleShowTrailer } from "../../ReduxSlice/showTrailerSlice";
 import { Box, Modal } from "@mui/material";
 
-const MovieDetailsModal = ({ isModelOpen, movieId, setIsModelOpen }) => {
+const MovieDetailsModal = ({
+  isModelOpen,
+  movieId,
+  setIsModelOpen,
+  isRecommended,
+}) => {
   const dispatch = useDispatch();
   const style = {
     position: "absolute",
@@ -33,7 +38,11 @@ const MovieDetailsModal = ({ isModelOpen, movieId, setIsModelOpen }) => {
               setIsModelOpen(false);
             }}
           ></i>
-          <MovieDetails movieId={movieId} setIsModelOpen={setIsModelOpen} />
+          <MovieDetails
+            movieId={movieId}
+            setIsModelOpen={setIsModelOpen}
+            isRecommended={isRecommended}
+          />
         </Box>
       </Modal>
     </div>

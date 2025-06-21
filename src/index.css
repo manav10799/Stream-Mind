@@ -52,3 +52,49 @@
 .input-search::-webkit-search-cancel-button {
   display: none;
 }
+
+.button {
+  --_fg: #e0e0e0;
+  /* Light gray text */
+  --_bg: #1e1e1e;
+  --_y: -4px;
+  color: var(--_fg);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  border-radius: 9999rem;
+  background: var(--_bg);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.button::after {
+  content: attr(aria-label);
+  color: var(--_bg);
+  padding: 12px 48px;
+  border-radius: inherit;
+  background: var(--_fg);
+  border: 2px solid var(--_bg);
+  transform: translateY(var(--_y));
+  transition: 200ms ease-out;
+}
+
+.button:hover {
+  --_y: -8px;
+}
+
+.button:active {
+  --_y: 2px;
+}
+
+.button:active::after {
+  transition: 50ms ease-out;
+}
+
+.button:focus-visible {
+  outline-color: black;
+}

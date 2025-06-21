@@ -24,7 +24,7 @@ const Facts = () => {
             words={[FACTS[random].fact]}
             cursor
             cursorStyle="|"
-            typeSpeed={100}
+            typeSpeed={75}
             deleteSpeed={50}
             s
             delaySpeed={1500}
