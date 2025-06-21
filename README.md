@@ -18,6 +18,7 @@ A smart, AI-powered movie discovery platform built with React, Firebase, Gemini 
 😂 Movie Title → Emoji Converter - A fun utility powered by Groq to turn movie names into emoji puzzles.
 
 🛠️ Tech Stack
+
 Frontend: React, Tailwind CSS, Redux Toolkit
 
 Backend/API: TMDB API, YouTube Embed, Nodejs With Express
