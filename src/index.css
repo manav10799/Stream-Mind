@@ -49,6 +49,16 @@
   text-overflow: ellipsis;
 }
 
+@media only screen and (max-width: 800px) {
+  .truncate-2-custom-main {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .input-search::-webkit-search-cancel-button {
   display: none;
 }

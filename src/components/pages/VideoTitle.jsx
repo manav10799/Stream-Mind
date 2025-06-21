@@ -33,16 +33,20 @@ const VideoTitle = ({ title, overView, movieId, isModal, showTrailer }) => {
   };
   return (
     <div
-      className={`absolute text-white left-20 ${isModal ? "top-30" : "top-80"}`}
+      className={`absolute text-white left-5 md:left-20 top-25 ${
+        isModal ? "top-30" : "lg:top-80"
+      }`}
     >
       <div>
         <div>
-          <h1 className="text-5xl font-bold">{title}</h1>
+          <h1 className="md:text-5xl font-bold text-2xl flex-wrap">{title}</h1>
         </div>
         <p
           title={overView}
           className={`text-gray-300 mt-4 mb-1" ${
-            isModal ? "w-1/4 text-wrap truncate-2-custom" : "w-1/3"
+            isModal
+              ? "w-1/4 text-wrap truncate-2-custom"
+              : "w-1/3 truncate-2-custom-main"
           }`}
         >
           {overView}

@@ -18,7 +18,7 @@ const Facts = () => {
         <span className="text-red-500">{FACTS[random].movie}!</span>
       </h1>
 
-      <div className="h-[80px] flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <h2 className="text-xl font-mono w-1/2">
           <Typewriter
             words={[FACTS[random].fact]}

@@ -15,9 +15,10 @@ const Header = () => {
     <div className="h-20 bg-black fixed w-full z-20 top-0">
       <div className="z-10 p-4 opacity-99 flex items-center justify-between">
         <Link to={auth.currentUser ? "/browse" : ""}>
-          <img className="w-50 ml-20" src="../../logo.png" />
+          <img className="w-50 ml-20 hidden sm:block" src="../../logo.png" />
+          <img className="w-8 block sm:hidden" src="../../logo-sm.png" />
         </Link>
-        <div className="pr-20 cursor-pointer flex items-center gap-4">
+        <div className="sm:mr-20 cursor-pointer flex items-center gap-4">
           {userInfo && (
             <div className="flex items-center">
               <Link to="/search">

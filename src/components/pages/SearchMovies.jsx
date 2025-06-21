@@ -152,10 +152,10 @@ const SearchMovies = () => {
           type="search"
           ref={searchText}
           placeholder="Search Movies With AI 🤖"
-          className="p-6 w-1/2 focus:outline-none bg-stone-900 rounded-xl text-gray-200 mt-10 input-search"
+          className="p-6 md:w-1/2 w-3/4 focus:outline-none bg-stone-900 rounded-xl text-gray-200 mt-10 input-search"
         />
         <i
-          className="bi bi-arrow-down-circle-fill text-2xl absolute top-15 left-[72%] cursor-pointer"
+          className="bi bi-arrow-down-circle-fill text-2xl absolute top-15 md:left-[72%] left-[78%] cursor-pointer"
           onClick={handleGptSearch}
         ></i>
       </div>
@@ -164,7 +164,7 @@ const SearchMovies = () => {
       {!isLoading ? (
         <div className="text-white">
           <div className="w-full mt-10">
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center md:flex-nowrap flex-wrap">
               {selector.searchResults[currentValue]?.map((movie, i) => (
                 <div key={movie.id}>
                   {movie && (

@@ -130,7 +130,7 @@ const MovieDetails = ({ movieId, setIsModelOpen, isRecommended }) => {
   return !isLoading ? (
     <div>
       {!selector?.showTrailer ? (
-        <div className="p-6 flex">
+        <div className="p-6 flex md:flex-row flex-col items-center">
           <img
             className="w-[150px] h-[200px] rounded-xl min-w-[150px]"
             src={VIDEO_IMAGE_PREFIX + movieDetails?.poster_path}

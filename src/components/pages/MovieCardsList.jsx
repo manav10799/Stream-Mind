@@ -56,10 +56,10 @@ const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
   };
 
   const handleSurpriseMe = async () => {
+    if (isClicked) return;
+    setIsClicked(true);
     if (useCanPerformActions("SurpriseMeButton")) {
-      if (isClicked) return;
-      setIsClicked(true);
-      const favMoviesName = favSelector.map((fav) => fav.title);
+      const favMoviesName = favSelector?.map((fav) => fav.title);
       const localStoredMovies =
         JSON.parse(localStorage.getItem("Searched Movies")) || [];
       const finalMovieList = favMoviesName.concat(localStoredMovies);
@@ -140,23 +140,35 @@ const MovieCardsList = ({ listTitle, moviesSelector, isFromFav }) => {
           isFromFav ? "" : "overflow-x-scroll hide-scrollbar"
         }`}
       >
-        <div className={`flex gap-3 ${isFromFav ? "flex-wrap" : "w-max"}`}>
-          {moviesSelector?.map((movie) => (
-            <div
-              key={movie.id}
-              className={`cursor-pointer ${isFromFav ? "relative" : ""}`}
-              onClick={() => {
-                setShowMovieId(movie.id);
-                setIsModelOpen(true);
-              }}
-            >
-              <img
-                src={VIDEO_IMAGE_PREFIX + movie.poster_path}
-                className="w-[250px] h-[350px]"
-              />
+        {moviesSelector?.length ? (
+          <div
+            className={`flex gap-3 ${
+              isFromFav ? "flex-wrap md:justify-start justify-center" : "w-max"
+            }`}
+          >
+            {moviesSelector?.map((movie) => (
+              <div
+                key={movie.id}
+                className={`cursor-pointer ${isFromFav ? "relative" : ""}`}
+                onClick={() => {
+                  setShowMovieId(movie.id);
+                  setIsModelOpen(true);
+                }}
+              >
+                <img
+                  src={VIDEO_IMAGE_PREFIX + movie.poster_path}
+                  className="w-[250px] h-[350px]"
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          isFromFav && (
+            <div className="w-full flex justify-center opacity-50">
+              <img src="../../image.png" />
             </div>
-          ))}
-        </div>
+          )
+        )}
       </div>
       <MovieDetailsModal
         isModelOpen={isModelOpen}
