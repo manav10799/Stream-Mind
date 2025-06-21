@@ -1,12 +1,36 @@
-# React + Vite
+# 🎬 Stream Mind
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A smart, AI-powered movie discovery platform built with React, Firebase, Gemini API, and TMDB, offering an engaging and personalized movie browsing experience.
 
-Currently, two official plugins are available:
+🔥 Features
+🔍 Browse Movies
+View now playing, upcoming, and trending movies using the TMDB API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🤖 AI-Based Recommendations
+Get smart movie suggestions by typing your mood or genre using Gemini API.
 
-## Expanding the ESLint configuration
+🎥 Detailed Movie Popups
+View movie details and trailers in a smooth, responsive popup.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🔐 User Authentication & Favorites
+Sign up or log in with Firebase Auth to save your favorite movies.
+
+🎯 Auto Movie Suggestions
+Auto-recommend movies based on session activity and favorites using Groq LLM.
+
+🎲 Random Movie Facts
+Automatically shows fun, random movie facts on the AI search page to keep users engaged.
+
+😂 Movie Title → Emoji Converter
+A fun utility powered by Groq to turn movie names into emoji puzzles.
+
+🛠️ Tech Stack
+Frontend: React, Tailwind CSS, Redux Toolkit
+
+Backend/API: TMDB API, YouTube Embed, Nodejs With Express
+
+Authentication & Storage: Firebase
+
+AI Integration: Gemini API, Groq LLM
+
+Fun Touches: Movie → Emoji translator using Groq LLM
