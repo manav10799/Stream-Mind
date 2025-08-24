@@ -3,7 +3,7 @@ import "./App.css";
 import Body from "./components/Body";
 import AppStore from "./ReduxStore/AppStore";
 import { RouterProvider, createBrowserRouter } from "react-router";
-import Login from "./login/login";
+import Login from "./login/Login";
 import Browse from "./components/pages/Browse";
 import Favourites from "./components/pages/Favourites";
 import SearchMovies from "./components/pages/SearchMovies";
