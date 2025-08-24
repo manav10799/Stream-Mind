@@ -10,3 +10,15 @@ jobs:
         run: npm ci
       - name: Run Test
         run: npm run test
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+      - name: Install Packages
+        run: npm ci
+      - name: Run Build
+        run: npm run build
+      - name: Deploy To Firebase
+        run: echo "Deploying..."
