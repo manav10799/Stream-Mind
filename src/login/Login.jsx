@@ -1,7 +1,7 @@
 import React from "react";
 import LoginPageImageTransition from "./LoginPageImageTransition";
 import LoginForm from "./LoginForm";
-import LoginIllustartion from "./loginIllustartion";
+import LoginIllustartion from "./LoginIllustartion";
 
 const Login = () => {
   return (
