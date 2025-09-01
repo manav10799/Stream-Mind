@@ -21,4 +21,4 @@ jobs:
       - name: Run Build
         run: npm run build
       - name: Deploy To Firebase
-        run: echo "Deploying..."
+        run: npx firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
