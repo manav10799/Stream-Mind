@@ -29,7 +29,10 @@ const Header = () => {
                 />
               </Link>
               <Link to="/favourites">
-                <i className="bi bi-collection-play-fill text-white text-2xl mr-4"></i>
+                <i
+                  className="bi bi-collection-play-fill text-white text-2xl mr-4"
+                  title="Favourites"
+                ></i>
               </Link>
             </div>
           )}
