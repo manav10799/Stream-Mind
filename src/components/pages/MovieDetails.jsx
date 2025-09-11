@@ -161,7 +161,7 @@ const MovieDetails = ({ movieId, setIsModelOpen, isRecommended, poster }) => {
               <p className="border w-max py-0.5 px-1 text-sm text-white/60 before:content-['.'] before:absolute before:left-6 before:top-0 before:text-white mr-3">
                 {movieDetails?.adult ? "A" : "U"}
               </p>
-              {movieDetails?.genres.map((genres, i) => (
+              {movieDetails?.genres?.map((genres, i) => (
                 <p key={genres?.id} className="text-[12px] text-gray-200">
                   {genres?.name}
                   {i !== movieDetails.genres.length - 1 && ","}
