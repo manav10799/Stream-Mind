@@ -6,6 +6,7 @@ const AddFavButton = ({ onClick }) => {
       <i
         className="bi bi-plus-square-dotted text-4xl text-gray-300 cursor-pointer"
         title="Favourites"
+        data-testid="Add Fav Button"
         onClick={onClick}
       ></i>
     </div>
